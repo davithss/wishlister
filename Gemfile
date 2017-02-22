@@ -8,11 +8,12 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'searchkick'
-gem "searchjoy"
 gem 'pg'
 gem 'jquery-ui-rails'
 gem 'rails_12factor', group: :production
+gem 'omniauth-foursquare'
+gem 'foursquare2'
+gem 'faraday'
 
 group :development, :test do
   gem 'byebug', platform: :mri
