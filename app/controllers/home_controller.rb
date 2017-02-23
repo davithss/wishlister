@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   end
 
   def delete_list_item
-     binding.pry
+    binding.pry
     current_user.foursquare.delete_list_item(params[:listId], params[:venueId])
     redirect_to '/wishlist'
   end

@@ -23,23 +23,23 @@
                     <p>At <%= checkin.venue.name %></p>
                     <p>
                       <% @profile.lists.groups.each do |list| %>
-                       <% list.items.each do |item| %>
-                        <% if item.empty? %>
-                        <%= link_to "create a list" %>
-                        <% else %>
-                        <p> <%# binding.pry %>
-                          <%= link_to "#{item['name']}", list_path(item: item.id, venue: checkin.venue.id) ,class: "ion-plus text-blue" %></p>
-                          <% end %>
-                         <% end %>
+                      <% list.items.each do |item| %>
+                      <% if item.empty? %>
+                      <%= link_to "create a list" %>
+                      <% else %>
+                      <p> <%# binding.pry %>
+                        <%= link_to "#{item['name']}", list_path(item: item.id, venue: checkin.venue.id) ,class: "ion-plus text-blue" %></p>
+                        <% end %>
+                        <% end %>
                         <% end %></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <% end %>
+                <% end %>
               </div>
             </div>
-            <% end %>
-            <% end %>
           </div>
         </div>
       </div>
-    </div>
-  </div>
