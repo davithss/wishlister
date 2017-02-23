@@ -9,6 +9,10 @@
   </head>
 
   <body>
+    <%# unless current_user.nil?  %>
     <%= yield %>
+    <%# else %>
+      <%#= link %>
+    <%# end %>
   </body>
 </html>
