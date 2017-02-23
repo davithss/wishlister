@@ -1,25 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Wishlist using foursquare API
 
-Things you may want to cover:
+Features:
 
-* Ruby version
+* Fousquare authetication
 
-* System dependencies
+* Get your friends recent checkins
 
-* Configuration
+* Save their checkin on your list
 
-* Database creation
+* You can see your lists and items
 
-* Database initialization
+TODO:
 
-* How to run the test suite
+* Fix bug on foursquare2 gem, it's not deleting item.
+* Create, Edit and Update list
+* RSPEC
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
 # wishlister
