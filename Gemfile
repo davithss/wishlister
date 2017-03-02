@@ -14,6 +14,7 @@ gem 'rails_12factor', group: :production
 gem 'omniauth-foursquare'
 gem 'foursquare2'
 gem 'faraday'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -29,6 +30,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
+  gem 'webmock'
 end
 
 group :development do
