@@ -1,7 +1,7 @@
 <div id="page-contents">
   <div class="container">
     <div class="row">
-      <%= render 'nav' %>
+      <%= render 'layouts/nav' %>
       <div class="col-md-7">
 
         <!-- Friend List
@@ -28,7 +28,7 @@
                       <%= link_to "create a list" %>
                       <% else %>
                       <p> <%# binding.pry %>
-                        <%= link_to "#{item['name']}", list_path(item: item.id, venue: checkin.venue.id) ,class: "ion-plus text-blue" %></p>
+                        <%#= link_to "#{item['name']}", list_path(item: item.id, venue: checkin.venue.id) ,class: "ion-plus text-blue" %></p>
                         <% end %>
                         <% end %>
                         <% end %></p>
