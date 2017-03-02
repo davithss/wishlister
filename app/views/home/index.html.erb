@@ -1,53 +1,53 @@
 <!-- Header
-  ================================================= -->
-  <header id="header-inverse">
-    <nav class="navbar navbar-default navbar-fixed-top menu">
-      <div class="container">
+================================================= -->
+<header id="header-inverse">
+  <nav class="navbar navbar-default navbar-fixed-top menu">
+    <div class="container">
 
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <%= image_tag "/assets/logo-white.png", width: '150' %>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <%= image_tag "/assets/logo-white.png", width: '150' %>
+      </div>
+    </div><!-- /.container -->
+  </nav>
+</header>
+<!--Header End-->
+
+<!-- Landing Page Contents
+================================================= -->
+<div id="lp-register">
+  <div class="container wrapper">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="intro-texts">
+          <h1 class="text-white">Make Cool Wishlist</h1>
+          <p>We are using a foursquare integration to make a nicest wishlist. Check your friends' recent checkins and make your wishlist.<br /> <br />Why are you waiting for? Join us.</p>
         </div>
-      </div><!-- /.container -->
-    </nav>
-  </header>
-  <!--Header End-->
+      </div>
+      <div class="col-sm-6 col-sm-offset-1">
+        <div class="reg-form-container">
 
-  <!-- Landing Page Contents
-  ================================================= -->
-  <div id="lp-register">
-    <div class="container wrapper">
-      <div class="row">
-        <div class="col-sm-5">
-          <div class="intro-texts">
-            <h1 class="text-white">Make Cool Wishlist</h1>
-            <p>We are using a foursquare integration to make a nicest wishlist. Check your friends' recent checkins and make your wishlist.<br /> <br />Why are you waiting for? Join us.</p>
+          <!-- Register/Login Tabs-->
+          <div class="reg-options">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#login" data-toggle="tab">Sign in</a></li>
+            </ul><!--Tabs End-->
           </div>
-        </div>
-        <div class="col-sm-6 col-sm-offset-1">
-          <div class="reg-form-container">
 
-            <!-- Register/Login Tabs-->
-            <div class="reg-options">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#login" data-toggle="tab">Sign in</a></li>
-              </ul><!--Tabs End-->
-            </div>
-
-            <div class="tab-content">
-              <div class="tab-pane active" id="login">
-                <h3>Sign in</h3>
-                <p class="text-muted">Be cool and join us today.</p>
-                <% if current_user %>
-                Signed in as: <strong><%= current_user.name %> - <%= current_user.email %>- <img src="<%#= current_user.foursquare.photo  %>" class="mdl-list__item-avatar"/></strong>
-                  <%= link_to "Sign out", signout_path, id: "sign_out" %>
-                <% else %>
-                  <%= link_to "Sign in with Foursquare", "/auth/foursquare", id: "sign_in", class: "btn btn-primary" %>
-                <% end %>
-              </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="login">
+              <h3>Sign in</h3>
+              <p class="text-muted">Be cool and join us today.</p>
+              <% if current_user %>
+              Signed in as: <strong><%= current_user.name %> - <%= current_user.email %>- <img src="<%#= current_user.foursquare.photo  %>" class="mdl-list__item-avatar"/></strong>
+              <%= link_to "Sign out", signout_path, id: "sign_out" %>
+              <% else %>
+              <%= link_to "Sign in with Foursquare", "/auth/foursquare", id: "sign_in", class: "btn btn-primary" %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
