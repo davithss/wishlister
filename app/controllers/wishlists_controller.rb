@@ -10,6 +10,7 @@ class WishlistsController < ApplicationController
 
   def new
     @wishlist = Wishlist.new
+    @wishlist.wishlist_items.build
   end
 
   def create
@@ -49,6 +50,9 @@ class WishlistsController < ApplicationController
   private
 
   def wishlist_params
-    params.require(:wishlist).permit(:name)
+    params.require(:wishlist).permit(:name, wishlist_items_attributes:
+                                            [:id, :name, :photo_url,
+                                             :address, :wishlist_id,
+                                             :_destroy])
   end
 end
