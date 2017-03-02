@@ -3,6 +3,23 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+require 'webmock/rspec'
+
+
+OmniAuth.config.test_mode = true
+omniauth_hash = {
+  'provider' => 'foursquare',
+  'uid' => '12345',
+  'info' => {
+    'name' => 'Chevchenko',
+    'email' => 'hi@chev.com',
+  },
+  'credentials' => {
+    'token' => '989u9h9h89',
+    'secret' => 'hahaeuh23828',
+  }
+}
+OmniAuth.config.add_mock(:foursquare, omniauth_hash)
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -18,10 +35,10 @@ RSpec.configure do |config|
 
   config.before(:each) do |example|
     DatabaseCleaner.strategy = if example.metadata[:browser]
-                                 :truncation
-                               else
-                                 :transaction
-                               end
+      :truncation
+    else
+      :transaction
+    end
     DatabaseCleaner.start
   end
 
