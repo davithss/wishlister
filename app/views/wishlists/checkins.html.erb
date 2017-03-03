@@ -1,0 +1,40 @@
+<div id="page-contents">
+  <div class="container">
+    <div class="row">
+      <%= render 'layouts/nav' %>
+      <div class="col-md-7">
+
+        <!-- Friend List
+        ================================================= -->
+        <div class="friend-list">
+          <div class="row">
+            <div align="right"><h5 class="grey">Friends Activities</h5></div>
+            <% @checkins.each do |checkin| %>
+            <% photo = current_user.foursquare.venue_photos(checkin.venue.id, limit:'1') %>
+            <% photo.items.each do |venue| %>
+            <div class="col-md-6 col-sm-6">
+              <div class="friend-card">
+                <img src="<%= "#{venue['prefix']}1030x360#{venue['suffix']}" %>" alt="profile-cover" class="img-responsive" />
+                <div class="card-info">
+                  <%= image_tag  "#{checkin['user']['photo']['prefix']}300x300#{checkin['user']['photo']['suffix']}", class: "profile-photo-lg" %>
+                  <div class="friend-info">
+                    <h5><span><%= checkin.user.firstName %></span></h5>
+                    <p>At <%= checkin.venue.name %></p>
+                    <%= simple_form_for WishlistItem.new, remote: true do |f| %>
+                    <%= f.association :wishlist, label: false, prompt: "Select a list" %>
+                    <%= f.input :name, input_html: { value: checkin.venue.name } , as: :hidden %>
+                    <%= f.input :photo_url, as: :hidden, input_html: { value: "#{venue['prefix']}1030x360#{venue['suffix']}" } %>
+                    <%= f.input :address, as: :hidden, input_html: { value: checkin.venue.location.formattedAddress } %>
+                    <%= f.submit 'Save', class: "btn btn-success" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

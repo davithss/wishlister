@@ -1,0 +1,37 @@
+<div id="page-contents">
+  <div class="container">
+    <div class="row">
+      <%= render 'layouts/nav' %>
+      <div class="col-md-7">
+        <div class="white-box">
+          <h3 class="box-title">Wishlist</h3>
+          <div class="table-responsive">
+            <table id= "myTable" class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%= link_to 'New List', new_wishlist_path %></th>
+                </tr>
+                <tr>
+                  <th>Name</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @wishlists.each do |wishlist| %>
+                <tr>
+                  <td><%= wishlist.name %></td>
+                  <td class="text-center">
+                    <%= link_to 'Show', wishlist_path(wishlist) %> -
+                    <%= link_to 'Edit', edit_wishlist_path(wishlist) %> -
+                    <%= link_to 'Delete', wishlist_path(wishlist), method: :delete %>
+                  </td>
+                </tr>
+                  <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

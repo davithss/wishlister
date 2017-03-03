@@ -1,0 +1,29 @@
+<div id="page-contents">
+  <div class="container">
+    <div class="row">
+      <%= render 'layouts/nav' %>
+      <div class="col-md-7">
+        <!-- Friend List
+        ================================================= -->
+        <div class="friend-list">
+          <div class="row">
+            <div align="right"><h5 class="grey">My Wishes - <%= @wishlist.name %></h5></div>
+            <% @wishlist.wishlist_items.each do |venue| %>
+            <div class="col-md-6 col-sm-6">
+              <div class="friend-card">
+                <img src="<%= "#{venue.photo_url}" %>" alt="profile-cover" class="img-responsive" />
+                <div class="card-info">
+                  <div class="friend-info">
+                    <h5><span><%= venue.name %></span></h5>
+                    <p>Address: <%= venue.address %></p>
+                    <p><%= link_to 'Delete', wishlist_item_path(venue.id), method: :delete %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
