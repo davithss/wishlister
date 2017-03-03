@@ -3,6 +3,6 @@ FactoryGirl.define do
     name Faker::Name.name
     address Faker::Address.street_address
     photo_url 'http://photo.com'
-    wishlist_item
+    wishlist
   end
 end
