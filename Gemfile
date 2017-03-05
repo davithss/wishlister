@@ -15,6 +15,7 @@ gem 'omniauth-foursquare'
 gem 'foursquare2'
 gem 'faraday'
 gem 'simple_form'
+gem 'warden'
 
 group :development, :test do
   gem 'byebug', platform: :mri
