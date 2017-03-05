@@ -5,7 +5,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'webmock/rspec'
 
-
 OmniAuth.config.test_mode = true
 omniauth_hash = {
   'provider' => 'foursquare',
@@ -24,6 +23,10 @@ OmniAuth.config.add_mock(:foursquare, omniauth_hash)
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include Warden::Test::Helpers
+  config.before :suite do
+    Warden.test_mode!
+  end
   config.include FactoryGirl::Syntax::Methods
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -44,14 +47,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-  end
-
-
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
-      with.test_framework :rspec
-      with.library :rails
-    end
   end
 
   Shoulda::Matchers.configure do |config|
