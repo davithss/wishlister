@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root 'home#index'
-  get 'checkins', to: "home#checkins"
-
   resources :wishlists
-
+  resources :wishlist_items
+  get 'checkins', to: "wishlists#checkins"
 end
