@@ -1,6 +1,7 @@
 class WishlistsController < ApplicationController
   before_action :profile
   before_action :checkins
+
   def index
     @wishlists = Wishlist.all
   end
@@ -61,14 +62,9 @@ class WishlistsController < ApplicationController
 
   private
 
-  def current_user
-    @current_user = User.find_by_id(session[:user_id]) if session[:user_id]
-  end
-
   def wishlist_params
     params.require(:wishlist).permit(:name, wishlist_items_attributes:
-    [:id, :name, :photo_url,
-      :address, :wishlist_id,
-      :_destroy])
-    end
+                                            [:id, :name, :photo_url, :address,
+                                             :wishlist_id, :_destroy])
   end
+end
