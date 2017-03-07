@@ -1,25 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe 'Wishlists', type: :request do
+RSpec.describe WishlistsController, type: :controller do
+  let(:current_user) { create(:user) }
+
+  before do
+    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:foursquare]
+
+    stub_request(:get, "https://api.foursquare.com/v2/users/self?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&v=20170215").
+    to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/user/success.json') , headers: {"Content-Type"=> "application/json"})
+
+    stub_request(:get, "https://api.foursquare.com/v2/checkins/recent?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&limit=10&v=20170215").
+    to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'), headers: {"Content-Type"=> "application/json"})
+
+    session[:user_id] = current_user.id
+  end
 
   describe 'GET #index' do
     let(:wishlist) { create(:wishlist) }
     before do
-      get wishlists_path
+      get :index
     end
     it 'returns all lists' do
       expect(assigns(:wishlists).count).to eq Wishlist.count
     end
 
-    it 'render index template' do
-      expect(response).to render_template(:index)
+    it 'redirects to index template' do
+      expect(response).to  render_template :index
     end
   end
 
   describe 'GET #show' do
     let(:wishlist) { create(:wishlist) }
     before do
-      get wishlist_path(wishlist)
+      get :show, params: { id: wishlist.id }
     end
 
     it 'returns specified list' do
@@ -29,7 +42,7 @@ RSpec.describe 'Wishlists', type: :request do
 
   describe 'GET #new' do
     before do
-      get new_wishlist_path
+      get :new
     end
 
     it 'is assigns new list' do
@@ -49,12 +62,12 @@ RSpec.describe 'Wishlists', type: :request do
 
       it 'saves new list in the database' do
         expect do
-          post wishlists_path, params: { wishlist: wishlist_attributes }
+          post :create, params: { wishlist: wishlist_attributes }
         end.to change(Wishlist, :count).by(1)
       end
 
       it 'redirects to wishlist#show' do
-        post wishlists_path, params: { wishlist: wishlist_attributes }
+        post :create, params: { wishlist: wishlist_attributes }
         expect(response).to redirect_to wishlist_path(assigns(:wishlist))
       end
     end
@@ -66,12 +79,12 @@ RSpec.describe 'Wishlists', type: :request do
 
       it 'does not save the new list in database' do
         expect do
-          post wishlists_path, params: { wishlist: wishlist_attributes }
+          post :create, params: { wishlist: wishlist_attributes }
         end.not_to change(Wishlist, :count)
       end
 
       it 'renders :new template' do
-        post wishlists_path, params: { wishlist: wishlist_attributes }
+        post :create, params: { wishlist: wishlist_attributes }
         expect(response).to render_template(:new)
       end
     end
@@ -80,7 +93,7 @@ RSpec.describe 'Wishlists', type: :request do
   describe 'GET #edit' do
     let(:wishlist) { create(:wishlist) }
     before do
-      get edit_wishlist_path(wishlist)
+      get :edit, params: { id: wishlist.id }
     end
 
     it 'assigns requested list to @wishlist' do
@@ -97,16 +110,16 @@ RSpec.describe 'Wishlists', type: :request do
 
     context 'with valid attributes' do
       it 'redirects to index' do
-        patch wishlist_path(wishlist),
-        params: { wishlist: { name: 'black ice' } }
+        patch :update,
+        params: { id: wishlist.id, wishlist: { name: 'black ice' } }
         expect(response).to redirect_to(wishlist_path(wishlist))
       end
     end
 
     context 'with invalid attributes' do
       it 'render :edit template' do
-        patch wishlist_path(wishlist),
-        params: { wishlist: { name: nil } }
+        patch :update,
+        params: { id: wishlist.id, wishlist: { name: nil } }
         expect(response).to render_template(:edit)
       end
     end
@@ -116,8 +129,19 @@ RSpec.describe 'Wishlists', type: :request do
     let(:wishlist) { create(:wishlist) }
 
     it 'delete the list' do
-      delete wishlist_path(wishlist)
+      delete :destroy, params: { id: wishlist.id }
       expect(response).to redirect_to(wishlists_path)
     end
   end
+
+  describe 'GET #checkins' do
+
+    it 'recent checkings from friends' do
+      client = stub_request(:get, "https://api.foursquare.com/v2/checkins/recent?oauth_token=current_user.oauth_token&v=20170215").
+      to_return(body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'))
+      response = JSON.parse(client.response.body)
+      expect(response['response']['recent'][0]['user']['firstName']).to eq('Pardal')
+    end
+  end
+
 end

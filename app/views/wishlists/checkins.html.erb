@@ -6,7 +6,6 @@
 
         <!-- Friend List
         ================================================= -->
-
         <div class="friend-list">
           <div class="row">
             <div align="right"><h5 class="grey">Friends Activities</h5></div>
@@ -21,25 +20,21 @@
                   <div class="friend-info">
                     <h5><span><%= checkin.user.firstName %></span></h5>
                     <p>At <%= checkin.venue.name %></p>
-                    <p>
-                      <% @profile.lists.groups.each do |list| %>
-                      <% list.items.each do |item| %>
-                      <% if item.empty? %>
-                      <%= link_to "create a list" %>
-                      <% else %>
-                      <p> <%# binding.pry %>
-                        <%#= link_to "#{item['name']}", list_path(item: item.id, venue: checkin.venue.id) ,class: "ion-plus text-blue" %></p>
-                        <% end %>
-                        <% end %>
-                        <% end %></p>
-                      </div>
-                    </div>
+                    <%= simple_form_for WishlistItem.new, remote: true do |f| %>
+                    <%= f.association :wishlist, label: false, prompt: "Select a list" %>
+                    <%= f.input :name, input_html: { value: checkin.venue.name } , as: :hidden %>
+                    <%= f.input :photo_url, as: :hidden, input_html: { value: "#{venue['prefix']}1030x360#{venue['suffix']}" } %>
+                    <%= f.input :address, as: :hidden, input_html: { value: checkin.venue.location.formattedAddress } %>
+                    <%= f.submit 'Save', class: "btn btn-success" %>
+                    <% end %>
                   </div>
                 </div>
-                <% end %>
-                <% end %>
               </div>
             </div>
+            <% end %>
+            <% end %>
           </div>
         </div>
       </div>
+    </div>
+  </div>
