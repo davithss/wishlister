@@ -8,6 +8,11 @@
         <div class="friend-list">
           <div class="row">
             <div align="right"><h5 class="grey">My Wishes - <%= @wishlist.name %></h5></div>
+            <h3>
+              <% if @wishlist.wishlist_items.blank? %>
+              <%= link_to "You don't have any item, please click here.", checkins_path  %>
+              <% end %>
+            </h3>
             <% @wishlist.wishlist_items.each do |venue| %>
             <div class="col-md-6 col-sm-6">
               <div class="friend-card">
@@ -17,13 +22,13 @@
                     <h5><span><%= venue.name %></span></h5>
                     <p>Address: <%= venue.address %></p>
                     <p><%= link_to 'Delete', wishlist_item_path(venue.id), method: :delete %>
+                    </div>
                   </div>
                 </div>
               </div>
+              <% end %>
             </div>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
-  </div>
