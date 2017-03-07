@@ -4,19 +4,18 @@ Wishlist using foursquare API
 
 Features:
 
-* Fousquare authetication
+* Authenticate with your foursquare account;
 
-* Get your friends recent checkins
+* Get your friends recent checkins;
 
-* Save their checkin on your list
+* You loved where your friend checked in? Add it on your Wish List;
 
-* You can see your lists and items
+* Manage your lists and wishes;
 
 TODO:
 
-* Fix bug on foursquare2 gem, it's not deleting item.
-* Create, Edit and Update list
-* RSPEC
+* Make a full integration with foursquare;
 
+* Help me improve it. Create a issue and PR.
 
 # wishlister
