@@ -14,7 +14,7 @@ class WishlistItemsController < ApplicationController
     @wishlistitem = WishlistItem.find(params[:id])
     @wishlistitem.destroy
     flash['notice'] = 'The item was deleted successfully'
-    redirect_to wishlist_path
+    redirect_to wishlists_path
   end
 
   private
