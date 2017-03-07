@@ -8,6 +8,11 @@
         <div class="friend-list">
           <div class="row">
             <div align="right"><h5 class="grey">My Wishes - <%= @wishlist.name %></h5></div>
+            <h3>
+                <% if @wishlist.wishlist_items.blank? %>
+                  <%= link_to "You don't have any item, please click here.", checkins_path  %>
+                <% end %>
+              </h3>
             <% @wishlist.wishlist_items.each do |venue| %>
             <div class="col-md-6 col-sm-6">
               <div class="friend-card">
