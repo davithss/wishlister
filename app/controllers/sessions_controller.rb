@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :verify_current_user, only: :create
-
   def create
     auth = request.env["omniauth.auth"]
     session[:omniauth] = auth.except('extra')

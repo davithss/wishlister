@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :user do
     provider "foursquare"
-    uid "15525570"
+    uid "5443534"
     name "Davi"
-    oauth_token "LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU"
-    email "davithss@gmail.com"
+    oauth_token "5645645644564"
   end
 end

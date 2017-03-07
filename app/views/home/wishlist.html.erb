@@ -1,0 +1,29 @@
+<div id="page-contents">
+  <div class="container">
+    <div class="row">
+      <%= render 'nav' %>
+      <div class="col-md-7">
+
+        <!-- Friend List
+        ================================================= -->
+
+        <div class="row">
+          <div class="nearby-user">
+            <div align="right"><h5 class="grey">Wishlist</h5></div>
+            <% @profile.lists.groups.each do |list| %>
+            <% list.items.each do |item| %>
+            <div class="col-md-7 col-sm-7">
+              <%# binding.pry %>
+              <h5><a href="#" class="profile-link"> <%= item['name'] %></a></h5>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <%= link_to "View List", list_info_path(item: item.id) , class: "btn btn-primary pull-right" %>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

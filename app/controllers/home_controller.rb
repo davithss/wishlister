@@ -1,7 +1,12 @@
 class HomeController < ApplicationController
-  skip_before_action :verify_current_user, only: :index
 
   def index
+  end
+
+  def checkins
+    @profile = current_user.foursquare.user("self")
+    @user_photo = "#{@profile['photo']['prefix']}40x40#{@profile['photo']['suffix']}"
+    @checkins = current_user.foursquare.recent_checkins(limit:'10')
   end
 
 end

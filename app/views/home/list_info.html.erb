@@ -1,0 +1,36 @@
+<div id="page-contents">
+  <div class="container">
+    <div class="row">
+      <%= render 'nav' %>
+      <div class="col-md-7">
+
+        <!-- Friend List
+        ================================================= -->
+        <div class="row">
+          <div class="nearby-user">
+            <div align="right"><h5 class="grey">List Info</h5></div>
+            <% @info.listItems.items.each do |list| %>
+            <div class="col-md-6 col-sm-6">
+              <div class="friend-card">
+                <img src="<%= "#{list.photo['prefix']}1030x360#{list.photo['suffix']}" %>" alt="profile-cover" class="img-responsive" />
+                <div class="card-info">
+
+                  <div class="friend-info">
+                    <h5><span>  <%= list.venue&.name %> </span></h5>
+                    <% @profile.lists.groups.each do |l| %>
+                    <% l.items.each do |lid| %>
+                    <p>
+                      <%#= link_to "remove", delete_item_path(listId: lid.id , venueId: list.venue&.id),class: "ion-plus text-blue" %>
+                    </p>
+                    <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>

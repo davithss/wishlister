@@ -5,15 +5,25 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'webmock/rspec'
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+OmniAuth.config.test_mode = true
+omniauth_hash = {
+  'provider' => 'foursquare',
+  'uid' => '12345',
+  'info' => {
+    'name' => 'Chevchenko',
+    'email' => 'hi@chev.com',
+  },
+  'credentials' => {
+    'token' => '989u9h9h89',
+    'secret' => 'hahaeuh23828',
+  }
+}
+OmniAuth.config.add_mock(:foursquare, omniauth_hash)
 
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include Warden::Test::Helpers
-  config.before :suite do
-    Warden.test_mode!
-  end
   config.include FactoryGirl::Syntax::Methods
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -22,4 +32,32 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
+
+  config.before(:each) do |example|
+    DatabaseCleaner.strategy = if example.metadata[:browser]
+      :truncation
+    else
+      :transaction
+    end
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
 end
