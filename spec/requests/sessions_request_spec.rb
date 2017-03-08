@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :request do
-
   before do
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:foursquare]
   end
 
   describe 'GET #create' do
-
     it 'can sign in with foursquare account' do
       expect do
         get '/auth/:provider/callback', params: { provider: :foursquare }
@@ -40,5 +38,4 @@ RSpec.describe 'Sessions', type: :request do
       expect(response).to redirect_to root_url
     end
   end
-
 end

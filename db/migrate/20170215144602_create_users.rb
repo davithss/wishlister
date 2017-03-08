@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :oauth_token
       t.string :email
-      
+
       t.timestamps
     end
   end

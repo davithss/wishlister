@@ -4,11 +4,11 @@ omniauth_hash = {
   'uid' => '12345',
   'info' => {
     'name' => 'Chevchenko',
-    'email' => 'hi@chev.com',
+    'email' => 'hi@chev.com'
   },
   'credentials' => {
     'token' => 'LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU',
-    'secret' => 'hahaeuh23828',
+    'secret' => 'hahaeuh23828'
   }
 }
 OmniAuth.config.add_mock(:foursquare, omniauth_hash)

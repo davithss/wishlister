@@ -50,14 +50,16 @@ class WishlistsController < ApplicationController
   end
 
   def profile
-    @profile = current_user.foursquare.user("self")
-    @user_photo = "#{@profile['photo']['prefix']}40x40#{@profile['photo']['suffix']}"
+    @profile = current_user.foursquare.user('self')
+    @user_photo = "
+              #{@profile['photo']['prefix']}40x40#{@profile['photo']['suffix']}"
   end
 
   def checkins
-    @profile = current_user.foursquare.user("self")
-    @user_photo = "#{@profile['photo']['prefix']}40x40#{@profile['photo']['suffix']}"
-    @checkins = current_user.foursquare.recent_checkins(limit:'10')
+    @profile = current_user.foursquare.user('self')
+    @user_photo = "
+              #{@profile['photo']['prefix']}40x40#{@profile['photo']['suffix']}"
+    @checkins = current_user.foursquare.recent_checkins(limit: '10')
   end
 
   private

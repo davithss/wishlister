@@ -2,16 +2,12 @@ require 'rails_helper'
 
 RSpec.describe WishlistsController, type: :controller do
   let(:current_user) { create(:user) }
-
   before do
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:foursquare]
-
-    stub_request(:get, "https://api.foursquare.com/v2/users/self?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&v=20170215").
-    to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/user/success.json') , headers: {"Content-Type"=> "application/json"})
-
-    stub_request(:get, "https://api.foursquare.com/v2/checkins/recent?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&limit=10&v=20170215").
-    to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'), headers: {"Content-Type"=> "application/json"})
-
+    stub_request(:get, 'https://api.foursquare.com/v2/users/self?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&v=20170215')
+      .to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/user/success.json'), headers: { 'Content-Type' => 'application/json' })
+    stub_request(:get, 'https://api.foursquare.com/v2/checkins/recent?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&limit=10&v=20170215')
+      .to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'), headers: { 'Content-Type' => 'application/json' })
     session[:user_id] = current_user.id
   end
 
@@ -56,7 +52,6 @@ RSpec.describe WishlistsController, type: :controller do
 
   describe 'GET #create' do
     context 'with valid attributes' do
-
       let(:wishlist) { create(:wishlist) }
       let(:wishlist_attributes) { attributes_for(:wishlist) }
 
@@ -111,7 +106,7 @@ RSpec.describe WishlistsController, type: :controller do
     context 'with valid attributes' do
       it 'redirects to index' do
         patch :update,
-        params: { id: wishlist.id, wishlist: { name: 'black ice' } }
+              params: { id: wishlist.id, wishlist: { name: 'black ice' } }
         expect(response).to redirect_to(wishlist_path(wishlist))
       end
     end
@@ -119,7 +114,7 @@ RSpec.describe WishlistsController, type: :controller do
     context 'with invalid attributes' do
       it 'render :edit template' do
         patch :update,
-        params: { id: wishlist.id, wishlist: { name: nil } }
+              params: { id: wishlist.id, wishlist: { name: nil } }
         expect(response).to render_template(:edit)
       end
     end
@@ -135,13 +130,11 @@ RSpec.describe WishlistsController, type: :controller do
   end
 
   describe 'GET #checkins' do
-
     it 'recent checkings from friends' do
-      client = stub_request(:get, "https://api.foursquare.com/v2/checkins/recent?oauth_token=current_user.oauth_token&v=20170215").
-      to_return(body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'))
+      client = stub_request(:get, 'https://api.foursquare.com/v2/checkins/recent?oauth_token=current_user.oauth_token&v=20170215')
+               .to_return(body: File.read('spec/support/api_responses/foursquare/recent_checkins/checkins.json'))
       response = JSON.parse(client.response.body)
       expect(response['response']['recent'][0]['user']['firstName']).to eq('Pardal')
     end
   end
-
 end

@@ -1,9 +1,8 @@
 class WishlistItemsController < ApplicationController
-
   def create
     @wishlistitem = WishlistItem.new(wishlist_items_params)
     if @wishlistitem.save
-      flash['success'] = "saved"
+      flash['success'] = 'saved'
       redirect_to wishlists_path
     else
       redirect_to checkins_path
@@ -23,5 +22,4 @@ class WishlistItemsController < ApplicationController
     params.require(:wishlist_item).permit(:wishlist_id, :name, :photo_url,
                                           :address)
   end
-
 end

@@ -5,8 +5,8 @@ RSpec.describe WishlistItemsController, type: :controller do
 
   before do
     Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:foursquare]
-    stub_request(:get, "https://api.foursquare.com/v2/users/self?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&v=20170215").
-    to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/user/success.json') , headers: {"Content-Type"=> "application/json"})
+    stub_request(:get, 'https://api.foursquare.com/v2/users/self?oauth_token=LTKENYAWPD2F0CTEGG2NCQOFJJLHQDAJ4TFFZCOVMNRZB0NU&v=20170215')
+      .to_return(status: 200, body: File.read('spec/support/api_responses/foursquare/user/success.json'), headers: { 'Content-Type' => 'application/json' })
     session[:user_id] = current_user.id
   end
 
