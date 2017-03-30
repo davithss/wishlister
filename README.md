@@ -18,4 +18,4 @@ TODO:
 
 * Help me improve it. Create a issue and PR.
 
-# wishlister
+* You must change config/initializers/omniauth.rb CLIENT_ID and CLIENT_SECRET
